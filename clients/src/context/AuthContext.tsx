@@ -4,8 +4,6 @@ import API from "../services/Api";
 
 type User = {
   id: number;
-  firstName: string;
-  lastName: string;
   email: string;
   username: string;
   token: string;
@@ -19,8 +17,6 @@ interface AuthContextType {
     username: string,
     email: string,
     password: string,
-    firstName: string,
-    lastName: string,
   ) => Promise<void>;
   logout: () => void;
 }
@@ -55,15 +51,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     username: string,
     email: string,
     password: string,
-    firstName: string,
-    lastName: string,
   ) => {
     const res = await API.post("/auth/register", {
       username,
       email,
       password,
-      firstName,
-      lastName,
     });
 
     const { user: userData, token } = res.data;

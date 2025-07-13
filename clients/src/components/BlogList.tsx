@@ -59,8 +59,7 @@ export default function BlogList() {
 
   const getDisplayName = () => {
     if (!user) return "Welcome";
-    const fullName = [user.firstName, user.lastName].filter(Boolean).join(" ");
-    return `Welcome back, ${fullName || user.username}`;
+    return `Welcome back, ${user.username}`;
   };
 
   return (
@@ -218,14 +217,10 @@ export default function BlogList() {
                         fontSize: 16,
                       }}
                     >
-                      {post.author.firstName && post.author.lastName
-                        ? `${post.author.firstName[0]}${post.author.lastName[0]}`.toUpperCase()
-                        : post.author.username[0].toUpperCase()}
+                      {post.author.username[0].toUpperCase()}
                     </Box>
                     <Typography variant="subtitle2">
-                      {post.author.firstName && post.author.lastName
-                        ? `${post.author.firstName} ${post.author.lastName}`
-                        : post.author.username}
+                      {post.author.username}
                     </Typography>
                     <Typography
                       variant="caption"

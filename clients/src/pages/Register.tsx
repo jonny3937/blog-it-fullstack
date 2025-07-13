@@ -18,15 +18,11 @@ export default function Register() {
     username: "",
     email: "",
     password: "",
-    firstName: "",
-    lastName: "",
   });
   const [touched, setTouched] = useState({
     username: false,
     email: false,
     password: false,
-    firstName: false,
-    lastName: false,
   });
   const [submitted, setSubmitted] = useState(false);
 
@@ -45,8 +41,6 @@ export default function Register() {
       username: true,
       email: true,
       password: true,
-      firstName: true,
-      lastName: true,
     });
     const hasError = Object.values(form).some((val) => !val);
     if (hasError) return;
@@ -54,8 +48,6 @@ export default function Register() {
       form.username,
       form.email,
       form.password,
-      form.firstName,
-      form.lastName,
     );
     navigate("/login");
   };
@@ -117,30 +109,6 @@ export default function Register() {
             onBlur={handleBlur}
             error={!!getError("password")}
             helperText={getError("password")}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            label="First Name"
-            name="firstName"
-            value={form.firstName}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={!!getError("firstName")}
-            helperText={getError("firstName")}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            label="Last Name"
-            name="lastName"
-            value={form.lastName}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={!!getError("lastName")}
-            helperText={getError("lastName")}
           />
           <Button
             type="submit"

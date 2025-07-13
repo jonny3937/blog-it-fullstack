@@ -138,7 +138,7 @@ export default function Landing() {
         </Box>
         <Box
           component="img"
-          src="./download.png"
+          src="/download.png"
           alt="Blogging illustration"
           sx={{ width: "100%", maxWidth: 600, mt: 6 }}
         />
