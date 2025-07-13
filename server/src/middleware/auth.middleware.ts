@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 export const authenticateToken = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
@@ -23,4 +23,4 @@ export const authenticateToken = (
   } catch (error) {
     return res.status(403).json({ message: "Invalid token" });
   }
-}; 
+};

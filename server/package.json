@@ -3,12 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "build": "tsc",
-    "start": "npx ts-node src/server.ts",
-    "clean": "rimraf dist",
-    "prebuild": "npm run clean",
-    "prod": "npm run build && npm start"
+    "build": "prisma generate && tsc",
+    "prisma:generate": "prisma generate",
+    "start:dev": "nodemon  src/index.ts",
+    "start:prod": "node dist/index.js"
   },
   "keywords": [],
   "author": "",

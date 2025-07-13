@@ -19,7 +19,9 @@ export const updateUser = async (req: Request, res: Response) => {
     });
 
     if (existingUser) {
-      return res.status(400).json({ message: "Username or email already exists" });
+      return res
+        .status(400)
+        .json({ message: "Username or email already exists" });
     }
 
     const user = await prisma.user.update({
@@ -57,7 +59,10 @@ export const updatePassword = async (req: Request, res: Response) => {
     }
 
     // Verify current password
-    const isValidPassword = await bcrypt.compare(currentPassword, user.password);
+    const isValidPassword = await bcrypt.compare(
+      currentPassword,
+      user.password,
+    );
     if (!isValidPassword) {
       return res.status(400).json({ message: "Current password is incorrect" });
     }
@@ -65,10 +70,10 @@ export const updatePassword = async (req: Request, res: Response) => {
     // Check new password strength using zxcvbn
     const passwordStrength = zxcvbn(newPassword);
     if (passwordStrength.score < 2) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         message: "New password is too weak. Please choose a stronger password.",
         suggestions: passwordStrength.feedback.suggestions,
-        warning: passwordStrength.feedback.warning
+        warning: passwordStrength.feedback.warning,
       });
     }
 
@@ -88,4 +93,4 @@ export const updatePassword = async (req: Request, res: Response) => {
     console.error("Update password error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-}; 
+};

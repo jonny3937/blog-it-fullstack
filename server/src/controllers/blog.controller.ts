@@ -158,4 +158,4 @@ export const deleteBlog = async (req: Request, res: Response) => {
     console.error("Delete blog error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-}; 
+};

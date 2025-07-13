@@ -7,4 +7,4 @@ const router = Router();
 router.patch("/", authenticateToken, updateUser);
 router.patch("/password", authenticateToken, updatePassword);
 
-export default router; 
+export default router;

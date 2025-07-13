@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { 
-  getAllBlogs, 
-  createBlog, 
-  getBlogById, 
-  updateBlog, 
-  deleteBlog 
+import {
+  getAllBlogs,
+  createBlog,
+  getBlogById,
+  updateBlog,
+  deleteBlog,
 } from "../controllers/blog.controller";
 import { authenticateToken } from "../middleware/auth.middleware";
 
@@ -16,4 +16,4 @@ router.get("/:id", getBlogById);
 router.put("/:id", authenticateToken, updateBlog);
 router.delete("/:id", authenticateToken, deleteBlog);
 
-export default router; 
+export default router;

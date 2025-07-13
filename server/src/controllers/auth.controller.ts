@@ -13,10 +13,10 @@ export const register = async (req: Request, res: Response) => {
     // Check password strength using zxcvbn
     const passwordStrength = zxcvbn(password);
     if (passwordStrength.score < 2) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         message: "Password is too weak. Please choose a stronger password.",
         suggestions: passwordStrength.feedback.suggestions,
-        warning: passwordStrength.feedback.warning
+        warning: passwordStrength.feedback.warning,
       });
     }
 
@@ -47,7 +47,7 @@ export const register = async (req: Request, res: Response) => {
     const token = jwt.sign(
       { userId: user.id, username: user.username },
       process.env.JWT_SECRET as string,
-      { expiresIn: "24h" }
+      { expiresIn: "24h" },
     );
 
     res.status(201).json({
@@ -90,7 +90,7 @@ export const login = async (req: Request, res: Response) => {
     const token = jwt.sign(
       { userId: user.id, username: user.username },
       process.env.JWT_SECRET as string,
-      { expiresIn: "24h" }
+      { expiresIn: "24h" },
     );
 
     res.json({
@@ -106,4 +106,4 @@ export const login = async (req: Request, res: Response) => {
     console.error("Login error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-}; 
+};
