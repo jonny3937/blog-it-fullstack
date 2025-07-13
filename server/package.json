@@ -5,8 +5,8 @@
   "scripts": {
     "build": "prisma generate && tsc",
     "prisma:generate": "prisma generate",
-    "start:dev": "nodemon  src/index.ts",
-    "start:prod": "node dist/index.js"
+    "start:dev": "nodemon  src/server.ts",
+    "start:prod": "node dist/server.js"
   },
   "keywords": [],
   "author": "",
