@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 app.use(
   cors({
-    origin: ["https://blog-it-fullstack.vercel.app", "http://localhost:3000"],
+    origin: ["https://blog-it-fullstack.vercel.app","https://super-centaur-625704.netlify.app", "http://localhost:3000"],
     credentials: true,
   }),
 );
