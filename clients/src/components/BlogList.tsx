@@ -24,6 +24,8 @@ import API from "../services/Api";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { CgProfile } from "react-icons/cg";
+import { TiThMenuOutline } from "react-icons/ti";
+import Drawer from "@mui/material/Drawer";
 
 export default function BlogList() {
   const [posts, setPosts] = useState<any[]>([]);
@@ -32,6 +34,7 @@ export default function BlogList() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [blogToDelete, setBlogToDelete] = useState<string | null>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     API.get("/blogs").then((res) => setPosts(res.data));
@@ -83,7 +86,7 @@ export default function BlogList() {
             <CgProfile style={{ marginRight: 8 }} />
             {getDisplayName()}
           </Typography>
-          <Box>
+          <Box sx={{ display: { xs: "none", md: "block" } }}>
             <Button
               variant="contained"
               onClick={() => navigate("/blogs/new")}
@@ -129,8 +132,77 @@ export default function BlogList() {
               Logout
             </Button>
           </Box>
+          <IconButton
+            sx={{ display: { xs: "block", md: "none" }, color: "#FFF" }}
+            onClick={() => setDrawerOpen(true)}
+            edge="end"
+            aria-label="menu"
+          >
+            <TiThMenuOutline size={28} />
+          </IconButton>
         </Toolbar>
       </AppBar>
+      <Drawer
+        anchor="right"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+      >
+        <Box
+          sx={{ width: 220, p: 2, display: "flex", flexDirection: "column", gap: 2 }}
+          role="presentation"
+        >
+          <Button
+            variant="contained"
+            onClick={() => {
+              setDrawerOpen(false);
+              navigate("/blogs/new");
+            }}
+            sx={{
+              backgroundColor: "#0B8457",
+              "&:hover": { backgroundColor: "#08613E" },
+              color: "#FFF",
+            }}
+            fullWidth
+          >
+            Create +
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => {
+              setDrawerOpen(false);
+              navigate("/profile");
+            }}
+            sx={{
+              backgroundColor: "#34495E",
+              "&:hover": { backgroundColor: "#2C3E50" },
+              color: "#FFF",
+            }}
+            fullWidth
+          >
+            My Profile
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              setDrawerOpen(false);
+              logout();
+              navigate("/");
+            }}
+            sx={{
+              bgcolor: "#E4572E",
+              color: "#FFF",
+              borderColor: "#E4572E",
+              "&:hover": {
+                bgcolor: "#B03C1E",
+                borderColor: "#B03C1E",
+              },
+            }}
+            fullWidth
+          >
+            Logout
+          </Button>
+        </Box>
+      </Drawer>
 
       <Box>
         <Box
@@ -150,7 +222,7 @@ export default function BlogList() {
           </Typography>
         </Box>
 
-        <Grid container spacing={3} sx={{ ml: 5 }} alignItems="stretch">
+        <Grid container spacing={3} sx={{ ml: 5, justifyContent: { xs: "center", md: "flex-start" }, display: "flex" }} alignItems="stretch">
           {posts.map((post) => (
             <Grid key={post.id} sx={{ maxWidth: 400, width: "100%" }}>
               <Card

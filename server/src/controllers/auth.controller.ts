@@ -69,7 +69,7 @@ export const login = async (req: Request, res: Response) => {
   try {
     const { email, username, password } = req.body;
 
-    // Find user by email or username
+ 
     let user = null;
     if (email) {
       user = await prisma.user.findFirst({
@@ -81,7 +81,7 @@ export const login = async (req: Request, res: Response) => {
         where: { username },
       });
     }
-    // Fallback: if only one field is provided, try both
+    
     if (!user && email) {
       user = await prisma.user.findFirst({
         where: { username: email },
@@ -103,7 +103,7 @@ export const login = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    // Generate JWT token
+    
     const token = jwt.sign(
       { userId: user.id, username: user.username },
       process.env.JWT_SECRET as string,
