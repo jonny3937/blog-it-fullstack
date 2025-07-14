@@ -67,14 +67,31 @@ export const register = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
+    const { email, username, password } = req.body;
 
     // Find user by email or username
-    const user = await prisma.user.findFirst({
-      where: {
-        OR: [{ email }, { username: email }],
-      },
-    });
+    let user = null;
+    if (email) {
+      user = await prisma.user.findFirst({
+        where: { email },
+      });
+    }
+    if (!user && username) {
+      user = await prisma.user.findFirst({
+        where: { username },
+      });
+    }
+    // Fallback: if only one field is provided, try both
+    if (!user && email) {
+      user = await prisma.user.findFirst({
+        where: { username: email },
+      });
+    }
+    if (!user && username) {
+      user = await prisma.user.findFirst({
+        where: { email: username },
+      });
+    }
 
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
